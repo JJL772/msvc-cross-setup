@@ -20,9 +20,10 @@ LLVMFILE="LLVM-$LLVMVER-win64.exe"
 if [[ ! -f "$LLVMFILE" ]]; then
 	wget "https://github.com/llvm/llvm-project/releases/download/llvmorg-$LLVMVER/$LLVMFILE"
 fi
-#wine "$LLVMFILE"
+wine "$LLVMFILE"
 
 # Download and install python
+# This is ugly, but we can't run the installer under WINE because WINE reports itself as win7
 PYFILE="python-$PYVER-embed-amd64.zip"
 if [[ ! -f "$PYFILE" ]]; then
 	wget "https://www.python.org/ftp/python/$PYVER/$PYFILE"
