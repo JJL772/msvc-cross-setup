@@ -1,0 +1,6 @@
+[submodule "msvc-wine"]
+	path = msvc-wine
+	url = https://github.com/mstorsjo/msvc-wine
+[submodule "cmake"]
+	path = cmake
+	url = https://gitlab.kitware.com/mstorsjo/cmake.git
