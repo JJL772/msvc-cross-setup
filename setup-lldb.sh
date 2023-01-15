@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+set -e
 
 if [[ -z "$1" ]]; then
 	echo "USAGE: $0 <prefix>"
@@ -7,8 +8,12 @@ fi
 
 cd "$(dirname "$0")"
 
-PYVER="3.6.8"
+PYVER="3.10.0"
 LLVMVER="15.0.6"
+
+if [[ -z "$WINEPREFIX" ]]; then
+	WINEPREFIX="$HOME/.wine"
+fi
 
 # Install llvm
 LLVMFILE="LLVM-$LLVMVER-win64.exe"
@@ -17,16 +22,15 @@ if [[ ! -f "$LLVMFILE" ]]; then
 fi
 #wine "$LLVMFILE"
 
-# Download python
+# Download and install python
 PYFILE="python-$PYVER-embed-amd64.zip"
 if [[ ! -f "$PYFILE" ]]; then
 	wget "https://www.python.org/ftp/python/$PYVER/$PYFILE"
 fi
-if [[ -d "python3" ]]; then
-	rm -rf python3
-fi
-mkdir python3 && pushd python3 > /dev/null
-unzip "../python-$PYVER-embed-amd64.zip"
+[[ -d python3 ]] && rm -rf python3
+mkdir -p python3 && pushd python3 > /dev/null
+unzip "../$PYFILE"
+cp -fv $(find .) "$WINEPREFIX/drive_c/Program Files/LLVM/bin/"
 popd > /dev/null
 
 # register the dlls
