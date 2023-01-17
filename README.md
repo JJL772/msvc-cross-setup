@@ -17,6 +17,6 @@ Make sure to clone recursively
 # Setup LLDB for easier debugging
 ./setup-lldb.sh ~/msvc
 
-# Fixup bad includes
-./fix-inc.sh ~/msvc
+# Fixup bad includes and create some library symlinks
+./fixup.sh ~/msvc
 ```

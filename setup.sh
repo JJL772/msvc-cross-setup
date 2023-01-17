@@ -6,9 +6,9 @@ if [[ -z "$1" ]]; then
 fi
 
 pushd msvc-wine > /dev/null
-./vsdownload.py --dest "$1"
+./vsdownload.py --accept-license --dest "$1" --sdk-version 10.0.20348
 ./install.sh "$1"
-./vsdownload.py --dest "$1" "Win10SDK_10.0.20348" "Microsoft.VisualCpp.ATL.X64" "Microsoft.VisualCpp.MFC.X64" "Microsoft.VisualStudio.Component.VC.ATLMFC"
+./vsdownload.py --accept-license --dest "$1" "Microsoft.VisualCpp.ATL.X64" "Microsoft.VisualCpp.MFC.X64" "Microsoft.VisualStudio.Component.VC.ATLMFC"
 popd > /dev/null
 
 pushd cmake > /dev/null
