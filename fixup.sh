@@ -11,15 +11,19 @@ cd "$(dirname "$0")"
 
 # Fixup kit includes
 for kit in "$1/kits/10/Include/"*; do
-	#ln -svf "$kit/um/ole2.h" "$kit/um/Ole2.h"
-	#ln -svf "$kit/um/olectl.h" "$kit/um/OleCtl.h"
+	ln -svf "$kit/um/ole2.h" "$kit/um/Ole2.h"
+	ln -svf "$kit/um/olectl.h" "$kit/um/OleCtl.h"
 	./scripts/fixinclude "$kit/um/"
 	ln -svf "$kit/um/windows.h" "$kit/um/Windows.h"
 done
 
 for kit in "$1/kits/10/Lib/"*; do
-	# imm32.lib -> Imm32.Lib because of MFC pragma comments
-	ln -svf "$kit/um/x64/imm32.lib" "$kit/um/x64/Imm32.Lib"
+	# Fixups for various pragma comments we can't/don't want to change
+	for arch in "$kit/um/"*; do
+		ln -svf "$arch/imm32.lib" "$arch/Imm32.Lib"
+		ln -svf "$arch/winmm.lib" "$arch/WinMM.Lib"
+		ln -svf "$arch/d3dcompiler.lib" "$arch/D3DCompiler.lib"
+	done
 done
 
 function fixup-rc {
